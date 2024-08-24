@@ -1,12 +1,8 @@
 import pkg from 'pg';
-const { Client } = pkg;
+const { Pool } = pkg;
 
-const client = new Client({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'xxxquiz',
-    password: 'password',
-    port: 5432,
-  });
+const pool = new Pool({
+  connectionString: 'postgres://postgres:password@localhost:5432/xxxquiz'
+});
 
-export default client;
+export default pool;

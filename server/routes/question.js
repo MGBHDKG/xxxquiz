@@ -1,22 +1,23 @@
-import client from "../bdd/bddConnection.js";
+import pool from '../bdd/bddConnection.js';
 
 export default async function (fastify, options) {
-    fastify.get('/question', async (request, reply) => {
-        try {
-            await client.connect();
+  fastify.get('/question', async (request, reply) => {
+    let client;
 
-            // Exécutez la requête SQL pour récupérer toutes les questions
-            const result = await client.query('SELECT * FROM questions;');
+    try {
+      client = await pool.connect();
+      const result = await client.query('SELECT * FROM questions;');
 
-            // Renvoyez les résultats de la requête
-            return result.rows; // `result.rows` contient les données des lignes
-        } catch (err) {
-            // Gérez les erreurs de connexion ou de requête
-            console.error('Erreur lors de la connexion ou de la requête', err.stack);
-            reply.code(500).send({ error: 'Une erreur est survenue.' });
-        } finally {
-            // Fermez la connexion à la base de données
-            await client.end();
-        }
-    });
+      const randomIndex = Math.floor(Math.random() * result.rows.length);
+
+      return result.rows[randomIndex];
+    } catch (err) {
+      console.error('Erreur lors de la connexion ou de la requête', err.stack);
+      reply.code(500).send({ error: 'Une erreur est survenue.' });
+    } finally {
+      if (client) {
+        client.release();
+      }
+    }
+  });
 }
