@@ -2,3 +2,5 @@ node_modules
 package-lock.json
 cahier_des_charges
 assets
+client/vite.config.js
+client/eslint.config.js
