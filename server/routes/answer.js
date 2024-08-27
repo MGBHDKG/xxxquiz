@@ -18,9 +18,9 @@ export default async function (fastify, options) {
 
             const result = await client.query('SELECT * FROM questions WHERE id = $1;', [id]);
 
-            if(result.rows[0]["rightanswer"] == answer) return {msg: "Good answer congrats !"};
+            if(result.rows[0]["rightanswer"] == answer) return {msg: "Good answer congrats !", path: result.rows[0]["fullpicturepath"], isRight: true};
 
-            return {msg: "Wrong Answer !", rightAnswer: result.rows[0]["rightanswer"] }
+            return {msg: "Wrong Answer !", rightAnswer: result.rows[0]["rightanswer"], path: result.rows[0]["fullpicturepath"], isRight: false}
 
           } catch (err) {
             console.error('Erreur lors de la connexion ou de la requête', err.stack);

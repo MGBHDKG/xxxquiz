@@ -22,6 +22,10 @@ span{
     border-radius: 20px;
 }
 
+img{
+    max-height: 50vh;
+}
+
 #home-wrapper{
     display: flex;
     align-items: center;
