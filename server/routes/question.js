@@ -9,7 +9,8 @@ export default async function (fastify, options) {
       const result = await client.query('SELECT * FROM questions;');
 
       const randomIndex = Math.floor(Math.random() * result.rows.length);
-
+      
+      //Retirer la réponse et le chemin de la réponse en vrai
       return result.rows[randomIndex];
     } catch (err) {
       console.error('Erreur lors de la connexion ou de la requête', err.stack);

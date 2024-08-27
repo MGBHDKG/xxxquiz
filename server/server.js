@@ -1,8 +1,15 @@
 import Fastify from 'fastify';
+import cors from '@fastify/cors';
+
 import questionRoutes from "./routes/question.js"
 import answerRoutes from './routes/answer.js'
 
 const fastify = Fastify({ logger: true });
+
+fastify.register(cors, {
+  origin: 'http://localhost:5173',
+  methods: ['GET', 'POST']
+});
 
 fastify.register(questionRoutes);
 fastify.register(answerRoutes);
