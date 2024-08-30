@@ -61,13 +61,14 @@ export default function Game(){
 
         setTimeout(() => {
             getNewQuestion()
-        }, 3000)
+        }, 5000)
     }
 
     return (
         <div id="game">
             <h2>Who is this actor/actress ?</h2>
             <img src={img} alt="Actor/actress image" />
+            <h3>{rightAnswer}</h3>
             <Questions questions={questions} submitAnswer={submitAnswer} rightAnswer={rightAnswer} wrongAnswer={wrongAnswer}/>
         </div>
     )
